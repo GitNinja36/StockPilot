@@ -47,7 +47,7 @@ function ZerodhaPage() {
                     </div>
                     <div className='d-flex justify-content-between'>
                         <div>
-                            <p >Explore our products <i className="fa-solid fa-arrow-right"></i></p>
+                            <p>Explore our products <i className="fa-solid fa-arrow-right"></i></p>
                         </div>
                         <div>
                             <p>Try Kite demo <i className="fa-solid fa-arrow-right"></i></p>
