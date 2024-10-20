@@ -5,7 +5,7 @@ function ZerodhaPage() {
         <div className='container mt-5 mb-5'>
             {/* Info Section */}
             <section className='row mb-5 '>
-                <div className='col-md-6'>
+                <div className='col-6'>
                     <h1>Trust with confidence</h1>
                     <div className='mt-5'>
                         <div className='mt-4'>
@@ -35,23 +35,32 @@ function ZerodhaPage() {
                     </div>
                 </div>
 
-                <div className='col-md-5'>
+                <div className='col-6 mb-3 '>
                     {/* Image Section */}
-                    <div className="text-center">
                         <img 
                             src="media/images/ecosystem.png" 
                             alt="Eco-System" 
                             className='img-fluid' 
-                            style={{ maxWidth: '623px', height: '612' }}
+                            style={{ Width: '75%' }}
                         />
-                    </div>
-                    <div className='d-flex justify-content-between'>
-                        <div>
-                            <p>Explore our products <i className="fa-solid fa-arrow-right"></i></p>
+                        <div className='text-center d-flex flex-row justify-content-around' >
+                            <a href="" className='text-decoration-none '>
+                                <p>Explore our products <i className="fa-solid fa-arrow-right"></i></p>
+                            </a>
+                            <a href="" className='text-decoration-none '>
+                                <p>Try Kite demo <i className="fa-solid fa-arrow-right"></i></p>
+                            </a>
                         </div>
-                        <div>
-                            <p>Try Kite demo <i className="fa-solid fa-arrow-right"></i></p>
-                        </div>
+                </div>
+
+                <div className='col-mid-5 mt-5 mb-3'>
+                    <div className='text-center'>
+                        <img 
+                            src="media/images/pressLogos.png"
+                            alt="Press-Logos"
+                            className='img-fluid'
+                            style={{maxWidth: '710px', height: '40'}}
+                        />
                     </div>
                 </div>
 
