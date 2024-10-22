@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Footer() {
   return (
@@ -21,154 +22,154 @@ function Footer() {
 
           <div className="d-flex flex-column mb-">
             <div className="mt-3 pb-2 border-bottom">
-              <a href="#" className="text-muted mx-2 ">
+              <Link to="/" className="text-muted mx-2 ">
                 <i className="fab fa-x-twitter fs-6"></i>
-              </a>
-              <a href="#" className="text-muted mx-2">
+              </Link>
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-facebook fs-6"></i>
-              </a>
-              <a href="#" className="text-muted mx-2">
+              </Link>
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-instagram fs-6"></i>
-              </a>
-              <a href="#" className="text-muted mx-2">
+              </Link>
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-linkedin fs-6"></i>
-              </a>
+              </Link>
             </div>
             <div className=" mt-2">
-              <a href="#" className="text-muted mx-2">
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-youtube fs-6"></i>
-              </a>
-              <a href="#" className="text-muted mx-2">
+              </Link>
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-whatsapp fs-6"></i>
-              </a>
-              <a href="#" className="text-muted mx-2">
+              </Link>
+              <Link to="/" className="text-muted mx-2">
                 <i className="fab fa-telegram fs-6"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
 
         <div className="p-2 ">
           <h5 className="footer-text pb-2 ">
-            <a href="#" className="footer-link">
+            <Link to="/" className="footer-link">
               Company
-            </a>
+            </Link>
           </h5>
           <ul className="list-unstyled ">
             <li className="footer-item">
-              <a href="#" className="footer-link">
+              <Link to="/about" className="footer-link">
                 About
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/product" className="footer-link">
                 Products
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/pricing" className="footer-link">
                 Pricing
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Referral programme
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Careers
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Zerodha.tech
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Press & media
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Zerodha Cares (CSR)
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         <div className="p-2">
           <h5 className="footer-text pb-2">
-            <a href="#" className="footer-link">
+            <Link href="#" className="footer-link">
               Support
-            </a>
+            </Link>
           </h5>
           <ul className="list-unstyled ">
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Contact us
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Support portal
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Z-Connect blog
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 List of charges
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Downloads & resources
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Videos
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Market overview
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 How to file a complaint?
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Status of your complaints
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         <div className="p-2">
           <h5 className="footer-text pb-2">
-            <a href="#" className="footer-link">
+            <Link href="#" className="footer-link">
               Account
-            </a>
+            </Link>
           </h5>
           <ul className="list-unstyled">
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Open an account
-              </a>
+              </Link>
             </li>
             <li className="footer-item">
-              <a href="" className="footer-link">
+              <Link to="/" className="footer-link">
                 Fund transfer
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -198,49 +199,49 @@ function Footer() {
 
         <div className="container d-flex flex-row mb-3 d-flex justify-content-evenly">
             <div className=" ">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>NSE</p>
-                </a>
+                </Link>
             </div>
             <div className="">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>BSE</p>
-                </a>
+                </Link>
             </div>
             <div className=" ">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>MCX</p>
-                </a>
+                </Link>
             </div>
             <div className=" ">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>Terms & conditions</p>
-                </a>
+                </Link>
             </div>
             <div className=" ">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>Policies & procedures</p>
-                </a>
+                </Link>
             </div>
             <div className="">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>Privacy policy</p>
-                </a>
+                </Link>
             </div>
             <div className="">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>Disclosure</p>
-                </a>
+                </Link>
             </div>
             <div className=" ">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>For investor's attention</p>
-                </a>
+                </Link>
             </div>
             <div className="">
-                <a href="" className="footer-link small">
+                <Link to="/" className="footer-link small">
                     <p>Investor charter</p>
-                </a>
+                </Link>
             </div>
         </div>
 
