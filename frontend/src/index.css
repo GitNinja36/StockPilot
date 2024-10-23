@@ -31,3 +31,29 @@ code {
 .footer-text{
   padding-bottom: 2px;
 }
+
+.profile-card {
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  
+}
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team-profile-image{
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
