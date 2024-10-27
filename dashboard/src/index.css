@@ -524,7 +524,8 @@ hr {
 }
 
 .data .first h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  padding-right: 3rem;
   font-weight: 300;
   color: rgb(71, 71, 71);
 }
