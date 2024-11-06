@@ -1,8 +1,18 @@
+require('dotenv').config();
+
 const express = require("express");
+const mongoose = require("mongoose");
+
+
+
+const PORT = process.env.PORT || 8080;
+const MONGO_URL = process.env.MONGO_URL;
+
 const app = express();
 
-const port = 8080;
 
-app.listen(port, ()=>{
-    console.log(`backend is working at port ${port}`);
+app.listen(PORT, ()=>{
+    console.log(`backend is working at port ${PORT}`);
+    mongoose.connect(MONGO_URL);
+    console.log("Database Connected!!");
 })
