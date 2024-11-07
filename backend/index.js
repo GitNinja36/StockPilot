@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const { HoldingsModel } = require('./model/HoldingsModel');
 const { PositionsModel } = require('./model/PositionsModel');
@@ -10,6 +12,11 @@ const PORT = process.env.PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
+
+
+app.use(cors());
+app.use(bodyParser.json());
+
 
 
 // app.get('/addHoldings', async(req, res)=>{
@@ -137,45 +144,58 @@ const app = express();
 //       });
 //     res.send("Data has been saved!");
 // });
-app.get('/addPositions', async(req, res)=>{
-    let tempPositions = [
-    {
-        product: "CNC",
-        name: "EVEREADY",
-        qty: 2,
-        avg: 316.27,
-        price: 312.35,
-        net: "+0.58%",
-        day: "-1.24%",
-        isLoss: true,
-      },
-      {
-        product: "CNC",
-        name: "JUBLFOOD",
-        qty: 1,
-        avg: 3124.75,
-        price: 3082.65,
-        net: "+10.04%",
-        day: "-1.35%",
-        isLoss: true,
-      },
-    ];
-    tempPositions.forEach((items)=>{
-        let newPosition = new PositionsModel({
-            product: items.product,
-            name: items.name,
-            qty: items.qty,
-            avg: items.avg,
-            price: items.price,
-            net: items.net,
-            day: items.day,
-            isLoss: items.isLoss,
-        });
-        newPosition.save();
-    });
-    res.send("Data has been saved!");
+
+// app.get('/addPositions', async(req, res)=>{
+//     let tempPositions = [
+//     {
+//         product: "CNC",
+//         name: "EVEREADY",
+//         qty: 2,
+//         avg: 316.27,
+//         price: 312.35,
+//         net: "+0.58%",
+//         day: "-1.24%",
+//         isLoss: true,
+//       },
+//       {
+//         product: "CNC",
+//         name: "JUBLFOOD",
+//         qty: 1,
+//         avg: 3124.75,
+//         price: 3082.65,
+//         net: "+10.04%",
+//         day: "-1.35%",
+//         isLoss: true,
+//       },
+//     ];
+//     tempPositions.forEach((items)=>{
+//         let newPosition = new PositionsModel({
+//             product: items.product,
+//             name: items.name,
+//             qty: items.qty,
+//             avg: items.avg,
+//             price: items.price,
+//             net: items.net,
+//             day: items.day,
+//             isLoss: items.isLoss,
+//         });
+//         newPosition.save();
+//     });
+//     res.send("Data has been saved!");
+// });
+
+
+app.get('/allHoldings', async(req, res)=>{
+    let allHoldings = await HoldingsModel.find({});
+    res.json(allHoldings);
+
 });
 
+app.get('/allPositions', async(req, res)=>{
+    let allPositions = await PositionsModel.find({});
+    res.json(allPositions);
+    
+});
 
 app.listen(PORT, ()=>{
     console.log(`backend is working at port ${PORT}`);
