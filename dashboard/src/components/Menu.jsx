@@ -78,9 +78,21 @@ const Menu = () => {
           </Link>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+        <div className="profile " onClick={handleProfileClick}>
+        <Link
+            style={{textDecoration:"none", textAlign:"center", color:"black"}}
+            to="/login"
+        >
+          <div className="username">LogIn</div>
+        </Link>
+        </div>
+        <div className="profile " onClick={handleProfileClick}>
+        <Link
+            style={{textDecoration:"none", textAlign:"center", marginLeft:"0.5rem", color:"blue"}}
+            to="/signup"
+        >
+          <p className="username">SignUp</p>
+        </Link>
         </div>
         {isProfileDropdownOpen}
       </div>

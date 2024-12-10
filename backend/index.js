@@ -5,10 +5,16 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const session = require("express-session");
 const { HoldingsModel } = require('./model/HoldingsModel');
 const { PositionsModel } = require('./model/PositionsModel');
 
 const { OrdersModel } = require('./model/OrdersModel');
+const passport = require('passport');
+const LocalStrategy = require("passport-local");
+const User = require('./model/UsersModel');
+
+const userRouter = require('./routes/user');
 
 const PORT = process.env.PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
@@ -16,176 +22,67 @@ const MONGO_URL = process.env.MONGO_URL;
 const app = express();
 
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Frontend URL
+    credentials: true, // Allow credentials (cookies, authorization headers)
+  }));
+  
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 
 
+const sessionOption = {
+    secret:"yourSecretKey",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly :true,
+        secure: false, 
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+};
+app.use(session(sessionOption));
 
-// app.get('/addHoldings', async(req, res)=>{
-//     let tempHoldings = [
-//         {
-//           name: "BHARTIARTL",
-//           qty: 2,
-//           avg: 538.05,
-//           price: 541.15,
-//           net: "+0.58%",
-//           day: "+2.99%",
-//         },
-//         {
-//           name: "HDFCBANK",
-//           qty: 2,
-//           avg: 1383.4,
-//           price: 1522.35,
-//           net: "+10.04%",
-//           day: "+0.11%",
-//         },
-//         {
-//           name: "HINDUNILVR",
-//           qty: 1,
-//           avg: 2335.85,
-//           price: 2417.4,
-//           net: "+3.49%",
-//           day: "+0.21%",
-//         },
-//         {
-//           name: "INFY",
-//           qty: 1,
-//           avg: 1350.5,
-//           price: 1555.45,
-//           net: "+15.18%",
-//           day: "-1.60%",
-//           isLoss: true,
-//         },
-//         {
-//           name: "ITC",
-//           qty: 5,
-//           avg: 202.0,
-//           price: 207.9,
-//           net: "+2.92%",
-//           day: "+0.80%",
-//         },
-//         {
-//           name: "KPITTECH",
-//           qty: 5,
-//           avg: 250.3,
-//           price: 266.45,
-//           net: "+6.45%",
-//           day: "+3.54%",
-//         },
-//         {
-//           name: "M&M",
-//           qty: 2,
-//           avg: 809.9,
-//           price: 779.8,
-//           net: "-3.72%",
-//           day: "-0.01%",
-//           isLoss: true,
-//         },
-//         {
-//           name: "RELIANCE",
-//           qty: 1,
-//           avg: 2193.7,
-//           price: 2112.4,
-//           net: "-3.71%",
-//           day: "+1.44%",
-//         },
-//         {
-//           name: "SBIN",
-//           qty: 4,
-//           avg: 324.35,
-//           price: 430.2,
-//           net: "+32.63%",
-//           day: "-0.34%",
-//           isLoss: true,
-//         },
-//         {
-//           name: "SGBMAY29",
-//           qty: 2,
-//           avg: 4727.0,
-//           price: 4719.0,
-//           net: "-0.17%",
-//           day: "+0.15%",
-//         },
-//         {
-//           name: "TATAPOWER",
-//           qty: 5,
-//           avg: 104.2,
-//           price: 124.15,
-//           net: "+19.15%",
-//           day: "-0.24%",
-//           isLoss: true,
-//         },
-//         {
-//           name: "TCS",
-//           qty: 1,
-//           avg: 3041.7,
-//           price: 3194.8,
-//           net: "+5.03%",
-//           day: "-0.25%",
-//           isLoss: true,
-//         },
-//         {
-//           name: "WIPRO",
-//           qty: 4,
-//           avg: 489.3,
-//           price: 577.75,
-//           net: "+18.08%",
-//           day: "+0.32%",
-//         },
-//       ];
-//       tempHoldings.forEach((items)=>{
-//         let newHolding = new HoldingsModel({
-//             name: items.name,
-//             qty: items.qty,
-//             avg: items.avg,
-//             price: items.price,
-//             net: items.net,
-//             day: items.day,
-//         });
-//         newHolding.save();
-//       });
-//     res.send("Data has been saved!");
-// });
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
 
-// app.get('/addPositions', async(req, res)=>{
-//     let tempPositions = [
-//     {
-//         product: "CNC",
-//         name: "EVEREADY",
-//         qty: 2,
-//         avg: 316.27,
-//         price: 312.35,
-//         net: "+0.58%",
-//         day: "-1.24%",
-//         isLoss: true,
-//       },
-//       {
-//         product: "CNC",
-//         name: "JUBLFOOD",
-//         qty: 1,
-//         avg: 3124.75,
-//         price: 3082.65,
-//         net: "+10.04%",
-//         day: "-1.35%",
-//         isLoss: true,
-//       },
-//     ];
-//     tempPositions.forEach((items)=>{
-//         let newPosition = new PositionsModel({
-//             product: items.product,
-//             name: items.name,
-//             qty: items.qty,
-//             avg: items.avg,
-//             price: items.price,
-//             net: items.net,
-//             day: items.day,
-//             isLoss: items.isLoss,
-//         });
-//         newPosition.save();
-//     });
-//     res.send("Data has been saved!");
-// });
+passport.serializeUser((user, done) => {
+    console.log("Serializing user:", user); 
+    done(null, user._id);  // Store the user's ID in the session
+});
+passport.deserializeUser(async (id, done) => {
+    console.log("Deserializing user with ID:", id);
+    try {
+        const user = await User.findById(id); // Fetch the user from DB
+        console.log("Deserialized user:", user); 
+        done(null, user);
+    } catch (err) {
+        console.error("Error deserializing user:", err); 
+        done(err);
+    }
+});
 
+app.use("/", userRouter);
+
+app.get('/checkAuth', (req, res) => {
+    console.log("Session ID:", req.session.id);
+    console.log("User :", req.user);
+    res.json({ "authenticated" : req.isAuthenticated(), "user ": req.user });
+});
+
+const isAuthenticated = (req, res, next) => {
+    console.log("Session Id:", req.session.id);
+    console.log("Session Cookie:", req.cookies);
+    console.log("User:", req.user);
+    console.log(req.isAuthenticated());
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    console.log('User is not authenticated');
+    res.redirect('/login');
+};
 
 app.get('/allHoldings', async(req, res)=>{
     let allHoldings = await HoldingsModel.find({});
@@ -199,14 +96,16 @@ app.get('/allPositions', async(req, res)=>{
     
 });
 
-app.post('/newOrder', async(req, res)=>{
+app.post('/newOrder', isAuthenticated, async(req, res)=>{
+    console.log(req.body); 
     let newOrder = new OrdersModel({
         name: req.body.name,
         qty: req.body.qty,
         price: req.body.price,
         mode: req.body.mode
     });
-    newOrder.save();
+    console.log("New Order Data (before saving):", newOrder);
+    await newOrder.save();
     res.send("order saved");
 });
 
