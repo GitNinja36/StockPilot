@@ -5,14 +5,14 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const session = require("express-session");
+// const session = require("express-session");
 const { HoldingsModel } = require('./model/HoldingsModel');
 const { PositionsModel } = require('./model/PositionsModel');
 
 const { OrdersModel } = require('./model/OrdersModel');
-const passport = require('passport');
-const LocalStrategy = require("passport-local");
-const User = require('./model/UsersModel');
+// const passport = require('passport');
+// const LocalStrategy = require("passport-local");
+const UsersModel = require('./model/UsersModel');
 
 const userRouter = require('./routes/user');
 
@@ -22,49 +22,33 @@ const MONGO_URL = process.env.MONGO_URL;
 const app = express();
 
 
-app.use(cors({
-    origin: 'http://localhost:3000', // Frontend URL
-    credentials: true, // Allow credentials (cookies, authorization headers)
-  }));
+app.use(cors());
   
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.use("/auth", userRouter);
 
-const sessionOption = {
-    secret:"yourSecretKey",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly :true,
-        secure: false, 
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
-};
-app.use(session(sessionOption));
+// const sessionOption = {
+//     secret:"yourSecretKey",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         httpOnly :true,
+//         secure: false, 
+//         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+//         maxAge: 1000 * 60 * 60 * 24 * 7,
+//     },
+// };
+// app.use(session(sessionOption));
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser((user, done) => {
-    console.log("Serializing user:", user); 
-    done(null, user._id);  // Store the user's ID in the session
-});
-passport.deserializeUser(async (id, done) => {
-    console.log("Deserializing user with ID:", id);
-    try {
-        const user = await User.findById(id); // Fetch the user from DB
-        console.log("Deserialized user:", user); 
-        done(null, user);
-    } catch (err) {
-        console.error("Error deserializing user:", err); 
-        done(err);
-    }
-});
+// passport.serializeUser();
+// passport.deserializeUser();
 
-app.use("/", userRouter);
 
 app.get('/checkAuth', (req, res) => {
     console.log("Session ID:", req.session.id);
@@ -96,7 +80,7 @@ app.get('/allPositions', async(req, res)=>{
     
 });
 
-app.post('/newOrder', isAuthenticated, async(req, res)=>{
+app.post('/newOrder', async(req, res)=>{
     console.log(req.body); 
     let newOrder = new OrdersModel({
         name: req.body.name,
