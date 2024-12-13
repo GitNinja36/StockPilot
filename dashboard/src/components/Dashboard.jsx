@@ -1,11 +1,13 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-
+import 'react-toastify/ReactToastify.css';
 import Apps from "./Apps";
 import Funds from "./Funds";
 import Holdings from "./Holdings";
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
+import SiggendIn from "./SiggendIn";
+import LoggedIn from "./LoggedIn";
 import Orders from "./Orders";
 import Positions from "./Positions";
 import Summary from "./Summary";
@@ -31,8 +33,8 @@ const Dashboard = () => {
           <Route path="/positions" element={<Positions />} />
           <Route path="/funds" element={<Funds />} />
           <Route path="/apps" element={<Apps />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SiggendIn />} />
+          <Route path="/login" element={<LoggedIn />} />
         </Routes>
       </div>
     </div>

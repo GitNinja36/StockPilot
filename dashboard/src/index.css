@@ -843,4 +843,32 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
+/* login page css */
 
+.signinContainer{
+  display: flex;
+  flex-direction: column;
+}
+.nameContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1rem;
+}
+.signinInput{
+  height: 1.2rem;
+  width: 15rem;
+}
+.submitButton{
+  margin-left: 10rem;
+  height: 1.7rem;
+  width: 12rem;
+  border-radius: 18rem;
+  background-color: #9560f6;
+  border-color: #000000;
+}
+.signIntext{
+  text-align: center;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+}
