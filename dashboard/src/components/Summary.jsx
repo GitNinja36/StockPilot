@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
 
 const Summary = () => {
+  const [loggedInUser, setLoggedInUser] = useState('');
+  useEffect(()=>{
+    setLoggedInUser(localStorage.getItem('loggedInUser'));
+  })
+
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>Hi, {loggedInUser}</h6>
         <hr className="divider" />
       </div>
 
@@ -57,6 +63,7 @@ const Summary = () => {
         </div>
         <hr className="divider" />
       </div>
+      <ToastContainer />
     </>
   );
 };

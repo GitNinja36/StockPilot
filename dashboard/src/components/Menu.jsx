@@ -1,8 +1,24 @@
-import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, navigate } from "react";
+import { ToastContainer } from 'react-toastify';
+import { Link, useNavigate } from "react-router-dom";
+import { handleError, handleSuccess } from './utils';
 
 const Menu = () => {
+  const [loggedInUser, setLoggedInUser] = useState('');
+  const navigate = useNavigate();
+  useEffect(()=>{
+    setLoggedInUser(localStorage.getItem('loggedInUser'));
+  })
+
+  const handleLogout = (e) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedInUser');
+      handleSuccess('User Loggedout');
+      setTimeout(() => {
+          navigate('/');
+      }, 1000)
+  }
+
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -13,6 +29,7 @@ const Menu = () => {
   const handleProfileClick = (index) => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
+
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
@@ -78,24 +95,40 @@ const Menu = () => {
           </Link>
         </ul>
         <hr />
-        <div className="profile " onClick={handleProfileClick}>
-        <Link
-            style={{textDecoration:"none", textAlign:"center", color:"black"}}
-            to="/login"
-        >
-          <div className="username">LogIn</div>
-        </Link>
-        </div>
-        <div className="profile " onClick={handleProfileClick}>
-        <Link
-            style={{textDecoration:"none", textAlign:"center", marginLeft:"0.5rem", color:"blue"}}
-            to="/signup"
-        >
-          <p className="username">SignUp</p>
-        </Link>
-        </div>
+        {loggedInUser ? (
+          <div className="profile">
+            <p className="username" style={{ cursor: "pointer" }} onClick={handleLogout}>
+              Logout
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="profile">
+              <Link
+                style={{ textDecoration: "none", textAlign: "center", color: "black" }}
+                to="/login"
+              >
+                <div className="username">LogIn</div>
+              </Link>
+            </div>
+            <div className="profile">
+              <Link
+                style={{
+                  textDecoration: "none",
+                  textAlign: "center",
+                  marginLeft: "0.5rem",
+                  color: "blue",
+                }}
+                to="/signup"
+              >
+                <p className="username">SignUp</p>
+              </Link>
+            </div>
+          </>
+        )}
         {isProfileDropdownOpen}
       </div>
+      <ToastContainer />
     </div>
   );
 };
