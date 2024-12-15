@@ -15,6 +15,7 @@ const { OrdersModel } = require('./model/OrdersModel');
 const UsersModel = require('./model/UsersModel');
 
 const userRouter = require('./routes/user');
+const { authenticateUser } = require("./Middlewares/AuthValidation");
 
 const PORT = process.env.PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
@@ -50,23 +51,16 @@ app.use("/auth", userRouter);
 // passport.deserializeUser();
 
 
-app.get('/checkAuth', (req, res) => {
-    console.log("Session ID:", req.session.id);
-    console.log("User :", req.user);
-    res.json({ "authenticated" : req.isAuthenticated(), "user ": req.user });
-});
+// const isAuthenticated = (req, res, next) => {
+//     const jwtToken = req.localstorage;
+//     console.log(jwtToken);
+// };
 
-const isAuthenticated = (req, res, next) => {
-    console.log("Session Id:", req.session.id);
-    console.log("Session Cookie:", req.cookies);
-    console.log("User:", req.user);
-    console.log(req.isAuthenticated());
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    console.log('User is not authenticated');
-    res.redirect('/login');
-};
+// app.get('/checkAuth',isAuthenticated, (req, res) => {
+//     return res.status(400)
+//     .json({message  : "not autheciated"})
+// });
+
 
 app.get('/allHoldings', async(req, res)=>{
     let allHoldings = await HoldingsModel.find({});
@@ -80,7 +74,7 @@ app.get('/allPositions', async(req, res)=>{
     
 });
 
-app.post('/newOrder', async(req, res)=>{
+app.post('/newOrder', authenticateUser, async(req, res)=>{
     console.log(req.body); 
     let newOrder = new OrdersModel({
         name: req.body.name,

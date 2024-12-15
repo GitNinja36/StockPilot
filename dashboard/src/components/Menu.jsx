@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { handleError, handleSuccess } from './utils';
 
 const Menu = () => {
-  const [loggedInUser, setLoggedInUser] = useState('');
+  const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('loggedInUser'));
   const navigate = useNavigate();
   useEffect(()=>{
     setLoggedInUser(localStorage.getItem('loggedInUser'));
@@ -14,6 +14,7 @@ const Menu = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('loggedInUser');
       handleSuccess('User Loggedout');
+      setLoggedInUser(null);
       setTimeout(() => {
           navigate('/');
       }, 1000)
@@ -95,7 +96,7 @@ const Menu = () => {
           </Link>
         </ul>
         <hr />
-        {loggedInUser ? (
+        {(loggedInUser) ? (
           <div className="profile">
             <p className="username" style={{ cursor: "pointer" }} onClick={handleLogout}>
               Logout
@@ -128,7 +129,7 @@ const Menu = () => {
         )}
         {isProfileDropdownOpen}
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

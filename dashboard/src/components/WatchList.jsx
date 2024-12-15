@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Navigate } from "react";
 import { Tooltip, Grow } from '@mui/material';
 import { watchlist } from "../data/data";
 import {BarChart, BarChartOutlined, KeyboardArrowDown, KeyboardArrowUp, MoreHoriz} from '@mui/icons-material';
@@ -6,7 +6,6 @@ import GeneralContext from "./GeneralContext";
 
 
 const WatchList = () => {
-  
   return (
     <div className="watchlist-container">
       <div className="search-container">
