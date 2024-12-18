@@ -73,8 +73,8 @@ app.get('/allPositions', async(req, res)=>{
     res.json(allPositions);
     
 });
-
-app.post('/newOrder', authenticateUser, async(req, res)=>{
+// authenticateUser,
+app.post('/newOrder', async(req, res)=>{
     console.log(req.body); 
     let newOrder = new OrdersModel({
         name: req.body.name,

@@ -31,8 +31,13 @@ const loginValidation = (req, res, next)=>{
 
 const authenticateUser = (req, res, next) => {
     const authHeader = req.headers.authorization;
-
+    console.log("Headers: ", req.headers);
+    console.log("authHeader: ", req.headers.authorization);
+    console.log(req.headers);
+    console.log(req.localstorage);
+    console.log("authHeader : ",authHeader);
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        console.log("Unauthorized: No token provided")
         return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
 
